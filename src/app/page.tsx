@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { DietaryRestriction, getDietaryRestrictions } from "@/services/dietary-filter";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect } from "react";
+import { FridgeChefLogo } from "@/components/fridge-chef-logo";
 
 export default function Home() {
   const [ingredients, setIngredients] = useState<string[]>([]);
@@ -58,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-6">
-      <h1 className="text-3xl font-bold mb-6">FridgeChef</h1>
+      <FridgeChefLogo className="text-3xl font-bold mb-6" />
 
       {/* Ingredient Input Section */}
       <div className="flex flex-col md:flex-row gap-3 w-full max-w-md mb-6">
@@ -156,3 +157,4 @@ export default function Home() {
     </div>
   );
 }
+
