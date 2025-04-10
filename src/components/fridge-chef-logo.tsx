@@ -23,7 +23,7 @@ export const FridgeChefLogo = React.forwardRef<
           clipRule="evenodd"
         />
       </svg>
-      <span>FridgeChef</span>
+      <span className="bg-gradient-to-r from-primary to-accent text-white bg-clip-text text-3xl font-bold text-transparent">FridgeChef</span>
     </h1>
   );
 });
