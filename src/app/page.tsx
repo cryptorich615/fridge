@@ -84,7 +84,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div ref={contentRef} className="w-full max-w-md">
+        <div ref={contentRef} className="w-full max-w-md flex flex-col items-center">
           <FridgeChefLogo className="text-3xl font-bold mb-6" />
 
           {/* Ingredient Input Section */}
