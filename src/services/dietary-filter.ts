@@ -26,8 +26,33 @@ export async function getDietaryRestrictions(): Promise<DietaryRestriction[]> {
       description: 'Suitable for vegetarians.',
     },
     {
+      name: 'Vegan',
+      description: 'Excludes all animal products.',
+    },
+    {
       name: 'Gluten-Free',
       description: 'Free from gluten.',
     },
+    {
+      name: 'Dairy-Free',
+      description: 'Free from dairy products.',
+    },
+    {
+      name: 'Nut-Free',
+      description: 'Free from nuts.',
+    },
+    {
+      name: 'Soy-Free',
+      description: 'Free from soy products.',
+    },
+    {
+      name: 'Pescatarian',
+      description: 'Includes fish but excludes other meats.',
+    },
+    {
+      name: 'Paleo',
+      description: 'Excludes grains, legumes, and processed foods.',
+    },
   ];
 }
+
