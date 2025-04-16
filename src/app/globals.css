@@ -2,82 +2,173 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px rgba(80, 160, 255, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(80, 160, 255, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(80, 160, 255, 0.5); }
+}
+
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 0 1px rgba(80, 160, 255, 0.5); }
+  50% { box-shadow: 0 0 0 2px rgba(80, 160, 255, 0.8); }
+  100% { box-shadow: 0 0 0 1px rgba(80, 160, 255, 0.5); }
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+  20%, 24%, 55% { text-shadow: none; }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 5px rgba(0, 210, 255, 0.3), 0 0 10px rgba(0, 210, 255, 0.2); }
+  50% { box-shadow: 0 0 15px rgba(0, 210, 255, 0.6), 0 0 20px rgba(0, 210, 255, 0.4); }
+  100% { box-shadow: 0 0 5px rgba(0, 210, 255, 0.3), 0 0 10px rgba(0, 210, 255, 0.2); }
+}
+
+@keyframes borderFlow {
+  0% { border-color: rgba(0, 210, 255, 0.5); }
+  50% { border-color: rgba(180, 100, 255, 0.5); }
+  100% { border-color: rgba(0, 210, 255, 0.5); }
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease infinite;
+}
+
+code, pre, kbd {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+/* Custom button styling */
+.border-glow {
+  position: relative;
+}
+
+.border-glow:focus, .border-glow:active {
+  animation: none !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(80, 160, 255, 0.7);
+  transform: translateY(0) !important;
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #60a5fa, #a78bfa);
+}
+
+/* Futuristic Light mode scrollbar styling */
+:root:not(.dark) ::-webkit-scrollbar-track {
+  background: rgba(220, 240, 255, 0.5);
+  border-radius: 8px;
+}
+
+:root:not(.dark) ::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #00d2ff, #b464ff);
+  border-radius: 8px;
+}
+
+:root:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #40e0ff, #c880ff);
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
 }
 
 @layer base {
   :root {
-    --background: 0 0% 10%; /* Dark background */
-    --foreground: 0 0% 90%; /* Light text */
-    --card: 0 0% 15%; /* Slightly lighter card background */
-    --card-foreground: 0 0% 90%;
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 90%;
-    --primary: 0 0% 100%; /* White primary color */
-    --primary-foreground: 0 0% 0%; /* Black text on primary */
-    --secondary: 0 0% 20%; /* Slightly darker secondary */
-    --secondary-foreground: 0 0% 90%;
-    --muted: 0 0% 30%; /* Muted grey */
-    --muted-foreground: 0 0% 60%; /* Lighter muted grey */
-    --accent: 0 0% 40%; /* Accent grey */
-    --accent-foreground: 0 0% 90%;
-    --destructive: 0 62.8% 30.6%;
+    /* Futuristic Light mode colors */
+    --background: 210 30% 97%; /* Sleek light blue-white background */
+    --foreground: 220 40% 15%; /* Crisp dark blue-gray text */
+    --card: 200 30% 99%; /* Slightly blue-tinted card background */
+    --card-foreground: 220 40% 15%;
+    --popover: 200 30% 99%;
+    --popover-foreground: 220 40% 15%;
+    --primary: 195 100% 50%; /* Electric cyan primary */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    --secondary: 255 90% 65%; /* Electric purple secondary */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 30% 92%; /* Light blue-gray */
+    --muted-foreground: 220 30% 35%; /* Darker muted text */
+    --accent: 280 100% 70%; /* Vibrant magenta accent */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 350 100% 65%; /* Neon red for destructive actions */
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 50%;
-    --chart-1: 0 0% 50%;
-    --chart-2: 0 0% 60%;
-    --chart-3: 0 0% 70%;
-    --chart-4: 0 0% 80%;
-    --chart-5: 0 0% 90%;
-    --radius: 0.5rem;
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 40%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 0 0% 50%;
+    --border: 210 50% 88%;
+    --input: 210 50% 88%;
+    --ring: 195 100% 50%;
+    --chart-1: 195 100% 50%; /* Cyan */
+    --chart-2: 255 90% 65%; /* Electric purple */
+    --chart-3: 316 95% 65%; /* Bright pink */
+    --chart-4: 175 100% 50%; /* Bright teal */
+    --chart-5: 130 90% 55%; /* Electric green */
+    --radius: 0.4rem; /* Sharper radius for futuristic feel */
+    --sidebar-background: 210 30% 97%;
+    --sidebar-foreground: 220 40% 15%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 280 100% 70%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 210 50% 88%;
+    --sidebar-ring: 195 100% 50%;
 
-    --mantine-color-scheme: dark;
+    --mantine-color-scheme: light;
   }
 
   .dark {
-    --background: 0 0% 10%; /* Dark background */
-    --foreground: 0 0% 90%; /* Light text */
-    --card: 0 0% 15%; /* Slightly lighter card background */
-    --card-foreground: 0 0% 90%;
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 90%;
-    --primary: 0 0% 100%; /* White primary color */
-    --primary-foreground: 0 0% 0%; /* Black text on primary */
-    --secondary: 0 0% 20%; /* Slightly darker secondary */
-    --secondary-foreground: 0 0% 90%;
-    --muted: 0 0% 30%; /* Muted grey */
-    --muted-foreground: 0 0% 60%; /* Lighter muted grey */
-    --accent: 0 0% 40%; /* Accent grey */
-    --accent-foreground: 0 0% 90%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 224 71% 4%; /* Deep blue-black background */
+    --foreground: 213 31% 91%; /* Crisp white text */
+    --card: 224 71% 6%; /* Slightly lighter card background */
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 6%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 210 100% 52%; /* Vibrant blue primary */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    --secondary: 215 27% 17%; /* Dark blue-gray secondary */
+    --secondary-foreground: 213 31% 91%;
+    --muted: 215 27% 17%; /* Muted blue-gray */
+    --muted-foreground: 215 20% 65%; /* Lighter muted text */
+    --accent: 210 100% 52%; /* Accent matches primary for consistency */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%; /* Bright red for destructive actions */
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 50%;
-    --chart-1: 0 0% 50%;
-    --chart-2: 0 0% 60%;
-    --chart-3: 0 0% 70%;
-    --chart-4: 0 0% 80%;
-    --chart-5: 0 0% 90%;
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 40%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 0 0% 50%;
+    --border: 215 27% 17%;
+    --input: 215 27% 17%;
+    --ring: 210 100% 52%;
+    --chart-1: 210 100% 52%; /* Primary blue */
+    --chart-2: 262 83% 58%; /* Purple */
+    --chart-3: 316 70% 50%; /* Pink */
+    --chart-4: 175 84% 32%; /* Teal */
+    --chart-5: 130 55% 45%; /* Green */
+    --radius: 0.75rem; /* Slightly larger radius for modern feel */
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 210 100% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 100% 52%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 215 27% 17%;
+    --sidebar-ring: 210 100% 52%;
 
     --mantine-color-scheme: dark;
   }
@@ -89,5 +180,96 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at 10% 20%, rgba(80, 160, 255, 0.1) 0%, transparent 40%),
+                     radial-gradient(circle at 90% 80%, rgba(140, 100, 255, 0.1) 0%, transparent 40%);
+  }
+  
+  /* Futuristic Light mode background adjustment */
+  :root:not(.dark) body {
+    background-image: radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
+                     radial-gradient(circle at 90% 80%, rgba(180, 100, 255, 0.1) 0%, transparent 50%),
+                     linear-gradient(135deg, rgba(0, 210, 255, 0.03) 0%, transparent 50%, rgba(180, 100, 255, 0.03) 100%);
+    animation: gradientShift 20s ease infinite;
+  }
+  
+  /* Futuristic Light mode adjustments */
+  :root:not(.dark) .glass-effect {
+    @apply bg-background/70 backdrop-blur-xl border border-white/20 shadow-lg;
+    box-shadow: 0 8px 32px rgba(0, 210, 255, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  :root:not(.dark) .neon-text {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 210, 255, 0.6), 0 0 15px rgba(180, 100, 255, 0.4);
+    animation: neonFlicker 8s infinite alternate;
+  }
+  
+  :root:not(.dark) .border-glow {
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.4), inset 0 0 5px rgba(0, 210, 255, 0.2);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  :root:not(.dark) .border-glow:hover {
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6), inset 0 0 8px rgba(0, 210, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  :root:not(.dark) .border-glow:active, :root:not(.dark) .border-glow:focus {
+    box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.7), inset 0 0 5px rgba(0, 210, 255, 0.2);
+    transform: translateY(0) !important;
+    outline: none;
+  }
+  
+  /* Glassmorphism effect for containers */
+  .glass-effect {
+    @apply bg-background/40 backdrop-blur-lg border border-white/10 shadow-lg relative;
+    pointer-events: auto;
+  }
+  
+  /* Additional futuristic light mode elements */
+  :root:not(.dark) .futuristic-panel {
+    @apply bg-background/80 backdrop-blur-xl border border-white/30 rounded-lg p-4;
+    box-shadow: 0 8px 32px rgba(0, 210, 255, 0.15), 0 4px 8px rgba(0, 0, 0, 0.05);
+    animation: glowPulse 4s infinite;
+  }
+  
+  :root:not(.dark) .futuristic-border {
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    animation: borderFlow 8s infinite;
+  }
+  
+  :root:not(.dark) .futuristic-button {
+    @apply bg-primary/90 text-white rounded-md px-4 py-2 transition-all;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  
+  :root:not(.dark) .futuristic-button:hover {
+    @apply bg-primary;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  /* Neon text effect */
+  .neon-text {
+    @apply font-bold;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(80, 160, 255, 0.8), 0 0 15px rgba(80, 160, 255, 0.6);
+    animation: neonFlicker 5s infinite alternate;
+  }
+  
+  /* Futuristic border glow */
+  .border-glow {
+    @apply border border-primary/50;
+    box-shadow: 0 0 10px rgba(80, 160, 255, 0.5), inset 0 0 5px rgba(80, 160, 255, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .border-glow:hover {
+    box-shadow: 0 0 15px rgba(80, 160, 255, 0.7), inset 0 0 8px rgba(80, 160, 255, 0.3);
+  }
+  
+  .border-glow:active, .border-glow:focus {
+    box-shadow: 0 0 0 2px rgba(80, 160, 255, 0.8), inset 0 0 5px rgba(80, 160, 255, 0.2);
+    transform: translateY(0) !important;
+    outline: none;
   }
 }
